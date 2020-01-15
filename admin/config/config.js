@@ -109,7 +109,7 @@ export default {
               name: 'mock',
               icon: 'smile',
               component: './mock/list',
-            },
+            },           
             {
               path: '/admin',
               name: 'admin',
