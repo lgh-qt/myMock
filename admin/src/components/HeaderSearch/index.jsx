@@ -1,8 +1,8 @@
-import { AutoComplete, Icon, Input } from 'antd';
+// import { AutoComplete, Icon, Input } from 'antd';
 import React, { Component } from 'react';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import debounce from 'lodash/debounce';
-import styles from './index.less';
+// import styles from './index.less';
 
 export default class HeaderSearch extends Component {
   inputRef = null;

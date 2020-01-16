@@ -6,6 +6,7 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import { Divider, Card, Table,Input,Select,Button } from 'antd';
 import { connect } from 'dva';
+import Modals from './componment/modal'
 // import { Link } from 'dva/router';
 import styles from './index.less';
 
@@ -21,48 +22,6 @@ const options = {
   theme: 'material',
   lineNumbers: true,
 };
-const columns = [
-  {
-    title: '键值',
-    dataIndex: 'key',
-    key: 'key',
-  },
-  {
-    title: '描述',
-    dataIndex: 'description',
-    key: 'description',
-  },
-  {
-    title: '字段类型',
-    dataIndex: 'type',
-    key: 'type',
-  },
-  {
-    title: '是否必填',
-    dataIndex: 'mandatory',
-    key: 'mandatory',
-    render: text => {
-      const type = {
-        0: '否',
-        1: '是',
-      };
-      return type[text];
-    },
-  },
-  {
-    title: '操作',
-    dataIndex: 'option',
-    key: 'option',
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    render: (text, recodr, index) => (
-      <div>
-        <a>编辑</a>
-        <Divider type="vertical" />
-        <a>删除</a>
-      </div>
-    ),
-  },
-];
 connect();
 export default class MockList extends Component {
   constructor(props) {
@@ -77,7 +36,51 @@ export default class MockList extends Component {
       ],
       returnMsg: '返回示例',
       requestWay: 'post',
+      visible:false,
+      eidtData:false,
     };
+    this.columns = [
+        {
+          title: '键值',
+          dataIndex: 'key',
+          key: 'key',
+        },
+        {
+          title: '描述',
+          dataIndex: 'description',
+          key: 'description',
+        },
+        {
+          title: '字段类型',
+          dataIndex: 'type',
+          key: 'type',
+        },
+        {
+          title: '是否必填',
+          dataIndex: 'mandatory',
+          key: 'mandatory',
+          render: text => {
+            const type = {
+              0: '否',
+              1: '是',
+            };
+            return type[text];
+          },
+        },
+        {
+          title: '操作',
+          dataIndex: 'option',
+          key: 'option',
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          render: (text, recodr, index) => (
+            <div>
+              <a onClick={()=>{this.eidtClick(recodr,index)}}>编辑</a>
+              <Divider type="vertical" />
+              <a onClick={()=>{this.onDelect(index)}}>删除</a>
+            </div>
+          ),
+        },
+      ];
   }
 
   componentWillMount() {}
@@ -102,8 +105,34 @@ export default class MockList extends Component {
      
   }
 
+  onDelect = index => {
+      // eslint-disable-next-line react/no-access-state-in-setstate
+      const newSource =this.state.requestMsg.concat();
+    //   console.log(newSource)
+      newSource.splice(index,1);
+      this.setState({
+        requestMsg:newSource
+      })
+  }
+
+  eidtClick = (recodr,index) => {
+    console.log(recodr,index)
+    this.setState({
+        eidtData:recodr,
+        visible:true
+    })
+
+  }
+
+  handleCancel = () =>{
+    this.setState({
+        eidtData:false,
+        visible:false
+    })
+  }
+
   render() {
-    const { describe, url, requestMsg, returnMsg, requestWay } = this.state;
+    const { describe, url, requestMsg, returnMsg, requestWay,visible,eidtData } = this.state;
     return (
       <PageHeaderWrapper>
         <Card>
@@ -134,7 +163,8 @@ export default class MockList extends Component {
             <ul>
               <li>参数:</li>
               <li className={styles.myPre}>
-                <Table size="small" columns={columns} dataSource={requestMsg} />
+                <Table size="small" columns={this.columns} dataSource={requestMsg} />
+                <Modals visible={visible} data={eidtData} cancel={this.handleCancel} />
               </li>
               <li></li>
             </ul>
