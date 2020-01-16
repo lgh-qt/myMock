@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import slash from 'slash2';
 import defaultSettings from './defaultSettings'; // https://umijs.org/config/
 
@@ -97,19 +98,40 @@ export default {
             {
               path: '/',
               redirect: '/welcome',
+              hideInMenu: true,
             },
             {
               path: '/welcome',
               name: 'welcome',
               icon: 'smile',
               component: './Welcome',
+              hideInMenu: true,
             },
             {
-              path: '/mock',
+              path: '/mock/project',
               name: 'mock',
-              icon: 'smile',
-              component: './mock/list',
-            },           
+              icon: 'crown',
+              // component: './mock/list',
+              routes: [
+                {
+                  path: '/mock/project',
+                  component: './mock/projectList',
+                  name: 'project',
+                },
+                {
+                  path: '/mock/project/interfaceList',
+                  component: './mock/projectList/interfaceList',
+                  name: 'interface',
+                  hideInMenu: true,
+                },
+                {
+                  path: '/mock/project/interface/details',
+                  component: './mock/projectList/interfaceList/details',
+                  name: 'details',
+                  hideInMenu: true,
+                },
+              ],
+            },
             {
               path: '/admin',
               name: 'admin',
