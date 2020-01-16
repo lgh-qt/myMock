@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import styles from './index.less';
+
 export default class HeaderSearch extends Component {
   inputRef = null;
+
   static defaultProps = {
     defaultActiveFirstOption: false,
     onPressEnter: () => {},
@@ -44,6 +46,7 @@ export default class HeaderSearch extends Component {
       this.debouncePressEnter();
     }
   };
+
   onChange = value => {
     if (typeof value === 'string') {
       const { onSearch, onChange } = this.props;
@@ -60,6 +63,7 @@ export default class HeaderSearch extends Component {
       }
     }
   };
+
   enterSearchMode = () => {
     const { onVisibleChange } = this.props;
     onVisibleChange(true);
@@ -76,11 +80,13 @@ export default class HeaderSearch extends Component {
       },
     );
   };
+
   leaveSearchMode = () => {
     this.setState({
       searchMode: false,
     });
   };
+
   debouncePressEnter = () => {
     const { onPressEnter } = this.props;
     const { value } = this.state;
@@ -88,25 +94,25 @@ export default class HeaderSearch extends Component {
   };
 
   render() {
-    const { className, defaultValue, placeholder, open, ...restProps } = this.props;
-    const { searchMode, value } = this.state;
-    delete restProps.defaultOpen; // for rc-select not affected
+    // const { className, defaultValue, placeholder, open, ...restProps } = this.props;
+    // const { searchMode, value } = this.state;
+    // delete restProps.defaultOpen; // for rc-select not affected
 
-    const inputClass = classNames(styles.input, {
-      [styles.show]: searchMode,
-    });
+    // const inputClass = classNames(styles.input, {
+    //   [styles.show]: searchMode,
+    // });
     return (
       <span
-        className={classNames(className, styles.headerSearch)}
-        onClick={this.enterSearchMode}
-        onTransitionEnd={({ propertyName }) => {
-          if (propertyName === 'width' && !searchMode) {
-            const { onVisibleChange } = this.props;
-            onVisibleChange(searchMode);
-          }
-        }}
+        // className={classNames(className, styles.headerSearch)}
+        // onClick={this.enterSearchMode}
+        // onTransitionEnd={({ propertyName }) => {
+        //   if (propertyName === 'width' && !searchMode) {
+        //     const { onVisibleChange } = this.props;
+        //     onVisibleChange(searchMode);
+        //   }
+        // }}
       >
-        <Icon type="search" key="Icon" />
+        {/* <Icon type="search" key="Icon" />
         <AutoComplete
           key="AutoComplete"
           {...restProps}
@@ -124,7 +130,7 @@ export default class HeaderSearch extends Component {
             onKeyDown={this.onKeyDown}
             onBlur={this.leaveSearchMode}
           />
-        </AutoComplete>
+        </AutoComplete> */}
       </span>
     );
   }

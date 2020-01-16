@@ -13,6 +13,7 @@ import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { isAntDesignPro, getAuthorityFromRouter } from '@/utils/utils';
 import logo from '../assets/logo.svg';
+
 const noMatch = (
   <Result
     status="403"
@@ -37,18 +38,18 @@ const menuDataRender = menuList =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright="2019 蚂蚁金服体验技术部出品"
+    copyright="2020 liugh"
     links={[
       {
-        key: 'Ant Design Pro',
-        title: 'Ant Design Pro',
+        key: '1111',
+        title: '11111',
         href: 'https://pro.ant.design',
         blankTarget: true,
       },
       {
         key: 'github',
         title: <Icon type="github" />,
-        href: 'https://github.com/ant-design/ant-design-pro',
+        href: 'hhhh',
         blankTarget: true,
       },
       {

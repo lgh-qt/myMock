@@ -4,7 +4,7 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 // eslint-disable-next-line import/no-extraneous-dependencies
 // eslint-disable-next-line import/no-unresolved
 import { Controlled as CodeMirror } from 'react-codemirror2';
-import { Divider, Card, Table } from 'antd';
+import { Divider, Card, Table,Input,Select,Button } from 'antd';
 import { connect } from 'dva';
 // import { Link } from 'dva/router';
 import styles from './index.less';
@@ -15,6 +15,7 @@ require('codemirror/theme/neat.css');
 require('codemirror/mode/xml/xml.js');
 require('codemirror/mode/javascript/javascript.js');
 
+const { Option } =Select
 const options = {
   mode: 'javascript',
   theme: 'material',
@@ -82,9 +83,24 @@ export default class MockList extends Component {
   componentWillMount() {}
 
   onBeforChangeCode = type => (editor, data, value) => {
-    console.log(editor, data, value, 111111);
+    // console.log(editor, data, value, 111111);
     this.setState({ [type]: value });
   };
+
+  onChangeInput = type => e => {
+      console.log(type,e)
+      if(type!=='requestWay'){
+        const { value }= e.target;
+        this.setState({
+            [type]:value
+        })
+      }else{
+        this.setState({
+            [type]:e
+        })
+      }
+     
+  }
 
   render() {
     const { describe, url, requestMsg, returnMsg, requestWay } = this.state;
@@ -93,21 +109,30 @@ export default class MockList extends Component {
         <Card>
           <div>
             <ul>
-              <li>简单描述:</li>
-              <li>{describe}</li>
-            </ul>
-            <ul>
-              <li>请求URL</li>
+              {/* <li>:</li> */}
               <li>
-                <pre>{url}</pre>
+                  <span style={{marginRight:10}}>简单描述: </span>
+                  <Input style={{width:'500px'}}  onChange= {this.onChangeInput('describe')} value={describe} />
               </li>
             </ul>
             <ul>
-              <li>请求方式</li>
-              <li className={styles.myPre}>{requestWay}</li>
+              {/* <li>:</li> */}
+              <li>
+                <span style={{marginRight:10}}>请求URL: </span>
+                <Input style={{width:'500px'}} onChange= {this.onChangeInput('url')} value={url} />
+              </li>
             </ul>
             <ul>
-              <li>参数</li>
+              <li>
+                  <span style={{marginRight:10}}>请求方式: </span>
+                  <Select value={requestWay} onChange={this.onChangeInput('requestWay')}>
+                    <Option key='post'>POST</Option>
+                    <Option key='get'>GET</Option>
+                  </Select>
+                </li>
+            </ul>
+            <ul>
+              <li>参数:</li>
               <li className={styles.myPre}>
                 <Table size="small" columns={columns} dataSource={requestMsg} />
               </li>
@@ -122,6 +147,12 @@ export default class MockList extends Component {
                   onBeforeChange={this.onBeforChangeCode('returnMsg')}
                 />
               </li>
+            </ul>
+            <ul>
+                <li>
+                    <Button type='primary'>保存</Button>
+                    <Button style={{marginLeft:10}}>返回</Button>
+                </li>
             </ul>
           </div>
         </Card>
