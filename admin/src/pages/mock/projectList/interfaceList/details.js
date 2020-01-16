@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 // eslint-disable-next-line import/no-extraneous-dependencies
+// eslint-disable-next-line import/no-unresolved
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import { Divider, Card, Table } from 'antd';
 import { connect } from 'dva';
@@ -51,6 +52,7 @@ const columns = [
     title: '操作',
     dataIndex: 'option',
     key: 'option',
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     render: (text, recodr, index) => (
       <div>
         <a>编辑</a>
