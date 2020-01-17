@@ -11,7 +11,7 @@ var interface = require('./modules/interface')
 
 // 用户部分  start
 // 登录
-router.get('/user/login', function(req, res, next) {
+router.post('/user/login', function(req, res, next) {
   user.login(req, res, next)
 });
 //注册
@@ -37,6 +37,7 @@ router.post('/project/update', function(req, res, next) {
 router.post('/project/search', function(req, res, next) {
   project.search(req, res, next)
 });
+// 项目部分 end
 
 // 接口部分 start
 // 增加
@@ -59,6 +60,6 @@ router.post('/interface/search', function(req, res, next) {
 router.post('/interface/searchList', function(req, res, next) {
   interface.searchList(req, res, next)
 });
-
+// 接口部分 end
 
 module.exports = router;
